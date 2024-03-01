@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Totale punti decurtati per Trasgressore";
+}
+
+
+<h2>Totale punti decurtati per Trasgressore</h2>
+
+@if (Model is null)
+{
+    <h3>Non ci sono verbali sul database</h3>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id Anagrafica</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Cognome</th>
+                <th scope="col">Totale Punti</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var multa in Model)
+            {
+                <tr>
+                    <td scope="col">@multa.IDAnagrafica</td>
+                    <td scope="col">@multa.Nome</td>
+                    <td scope="col">@multa.Cognome</td>
+                    <td scope="col">@multa.Totale</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

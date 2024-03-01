@@ -103,7 +103,7 @@ namespace PoliziaMunicipale.Controllers
 
            
         }
-
+        //AGGIUNGE VERBALE
         [HttpGet]
         public IActionResult Add()
         {
@@ -168,13 +168,122 @@ namespace PoliziaMunicipale.Controllers
                 DB.conn.Close();
             }
 
+
+
+
             ViewBag.Violazioni = violazioni;
             ViewBag.Utenti = utenti;
 
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Add(Verbale verbale)
+        {
+            var error = true;
+            try
+            {
+                DB.conn.Open();
+                var cmd = new SqlCommand(@"INSERT INTO Verbale 
+                                           (DataViolazione, IndirizzoViolazione, Nominativo_Agente, DataTrascrizioneVerbale, Importo, DecurtamentoPunti, IDAnagrafica, IDViolazione)
+                                           VALUES (@dataViolazione, @indirizzoViolazione, @nominativo_agente, @dataTrascrizioneVerbale, @importo, @decurtamentoPunti, @idAnagrafica, @idViolazione)", DB.conn);
+                cmd.Parameters.AddWithValue("@dataViolazione", verbale.DataViolazione);
+                cmd.Parameters.AddWithValue("@indirizzoViolazione", verbale.IndirizzoViolazione);
+                cmd.Parameters.AddWithValue("@nominativo_agente", verbale.Nominativo_Agente);
+                cmd.Parameters.AddWithValue("@dataTrascrizioneVerbale", verbale.DataTrascrizioneVerbale);
+                cmd.Parameters.AddWithValue("@importo", verbale.Importo);
+                cmd.Parameters.AddWithValue("@decurtamentoPunti", verbale.DecurtamentoPunti);
+                cmd.Parameters.AddWithValue("@idAnagrafica", verbale.IDAnagrafica);
+                cmd.Parameters.AddWithValue("@idViolazione", verbale.IDViolazione);
 
+                var nRows = cmd.ExecuteNonQuery();
+                if (nRows > 0)
+                {
+                    error = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                
+                return View(ex.Message);
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+
+
+            if (!error)
+            {
+                TempData["MessageSuccess"] = $"Il verbale è stato correttamente aggiunto alla base dati";
+            }
+            else
+            {
+                TempData["MessageError"] = $"Errore durante il caricamento nella base dati.";
+
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //AGGIUNGE TRASGRESSORE
+
+        [HttpGet]
+        public IActionResult AddAnagrafica()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddAnagrafica(Anagrafica utente)
+        {
+            var error = true;
+            try
+            {
+                DB.conn.Open();
+                var cmd = new SqlCommand(@"INSERT INTO Anagrafica 
+                                    (Cognome, Nome, Indirizzo, Citta, CAP, Cod_Fisc)
+                                    VALUES (@cognome, @nome, @indirizzo, @citta, @cap, @cod_fisc)", DB.conn);
+                cmd.Parameters.AddWithValue("@cognome", utente.Cognome);
+                cmd.Parameters.AddWithValue("@nome", utente.Nome);
+                cmd.Parameters.AddWithValue("@indirizzo", utente.Indirizzo);
+                cmd.Parameters.AddWithValue("@citta", utente.Citta);
+                cmd.Parameters.AddWithValue("@cap", utente.CAP);
+                cmd.Parameters.AddWithValue("@cod_fisc", utente.Cod_Fisc);
+
+
+                var nRows = cmd.ExecuteNonQuery();
+
+                if (nRows>0) 
+                {
+                    error = false; 
+                }
+
+            }
+            catch (Exception ex)
+            {
+                
+                return View(ex.Message);
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+
+            if (!error)
+            {
+                TempData["MessageSuccess"] = $"L'utente {utente.Nome} {utente.Cognome} è stato aggiunto in anagrafica.";
+            }
+            else
+            {
+                TempData["MessageError"] = $"Errore durante il caricamento nella base dati.";
+
+            }
+
+            return RedirectToAction("Index");
+        }
 
 
         public IActionResult Privacy()

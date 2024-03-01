@@ -2,6 +2,21 @@
     ViewData["Title"] = "Home Page";
 }
 
+@if (TempData["MessageSuccess"] is not null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["MessageSuccess"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["MessageError"] is not null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MessageError"]
+    </div>
+}
+
 <h2>Verbali</h2>
 
 @if (Model is null)
@@ -13,14 +28,14 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Data Violazione</th>
-                <th scope="col">Indirizzo Violazione</th>
-                <th scope="col">Nominativo Agente</th>
-                <th scope="col">Data Trascrizione Verbale</th>
-                <th scope="col">Importo</th>
-                <th scope="col">Decurtamento Punti</th>
+                <th scope="col"  class="text-nowrap">Data Violazione</th>
+                <th scope="col" class="text-nowrap">Indirizzo Violazione</th>
+                <th scope="col" class="text-nowrap">Nominativo Agente</th>
+                <th scope="col" class="text-nowrap">Data Trascrizione Verbale</th>
+                <th scope="col" >Importo</th>
+                <th scope="col" class="text-nowrap">Decurtamento Punti</th>
                 <th scope="col">Descrizione</th>
-                <th scope="col">Action</th>
+                <th scope="col">Tragressore</th>
             </tr>
         </thead>
         <tbody>
@@ -34,10 +49,9 @@
                     <td scope="col">@multa.DataTrascrizioneVerbale.ToShortDateString()</td>
                     <td scope="col">@multa.Importo.ToString("#,00.##")</td>
                     <td scope="col">@multa.DecurtamentoPunti</td>
-                    <td scope="col">@multa.Descrizione</td>
+                    <td scope="col" class="text-nowrap">@multa.Descrizione</td>
                     <td scope="col">
-                        <a class="btn btn-outline-secondary text-nowrap " asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Dettaglio Anagrafica</a>
-                       
+                        <a class="btn btn-outline-secondary text-nowrap " asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Anagrafica Trasgressore</a>              
                     </td>               
                 </tr>
             }

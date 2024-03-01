@@ -11,6 +11,8 @@
         public decimal Importo { get; set; }
         public int DecurtamentoPunti {  get; set; }
         public int IDAnagrafica { get; set; }
+        public int IDViolazione { get; set; }
+
         public string Descrizione { get; set; }
     }
 }
