@@ -9,35 +9,37 @@
 <form class="row g-3" asp-controller="Home" asp-action="AddAnagrafica" method="post">
 
     <div class="col-md-6">
-        <label asp-for="@Model.Nome" class="form-label"></label>
-        <input type="text" class="form-control" asp-for="@Model.Nome">
+        <label asp-for="@Model.Nome" class="form-label">Nome*</label>
+        <input type="text" class="form-control" asp-for="@Model.Nome" required>
     </div>
 
     <div class="col-md-6">
-        <label asp-for="@Model.Cognome" class="form-label"></label>
-        <input type="text" class="form-control" asp-for="@Model.Cognome">
+        <label asp-for="@Model.Cognome" class="form-label">Cognome*</label>
+        <input type="text" class="form-control" asp-for="@Model.Cognome" required>
     </div>
 
     <div class="col-12">
-        <label asp-for="@Model.Indirizzo" class="form-label"></label>
-        <input type="text" class="form-control" asp-for="@Model.Indirizzo" placeholder="1234 Main St">
+        <label asp-for="@Model.Indirizzo" class="form-label">Indirizzo*</label>
+        <input type="text" class="form-control" asp-for="@Model.Indirizzo" placeholder="1234 Main St" required>
     </div>
 
     <div class="col-6">
-        <label asp-for="@Model.Citta" class="form-label"></label>
-        <input type="text" class="form-control" asp-for="@Model.Citta">
+        <label asp-for="@Model.Citta" class="form-label">Città*</label>
+        <input type="text" class="form-control" asp-for="@Model.Citta" required>
     </div>
 
     <div class="col-6">
-        <label asp-for="@Model.CAP" class="form-label"></label>
-        <input type="text" class="form-control" asp-for="@Model.CAP" maxlength="5">
+        <label asp-for="@Model.CAP" class="form-label">CAP* </label>
+        <input type="text" class="form-control" asp-for="@Model.CAP" maxlength="5" min="16" required>
     </div>
 
     <div class="col-md-6">
-        <label asp-for="@Model.Cod_Fisc" class="form-label">Codice Fiscale</label>
-        <input type="text" class="form-control" asp-for="@Model.Cod_Fisc" maxlength="16" min="16">
+        <label asp-for="@Model.Cod_Fisc" class="form-label">Codice Fiscale*</label>
+        <input type="text" class="form-control" asp-for="@Model.Cod_Fisc" maxlength="16" min="16" required>
     </div>
-
+    <div class="col-12">
+         <p class="text-secondary my-3">*Campi obbligatori</p>
+    </div>
     <div class="col-12">
         <button class="btn btn-outline-success">Aggiungi</button>
     </div>
