@@ -38,18 +38,19 @@
                                 <li><a class="dropdown-item text-black" asp-area="" asp-controller="Home" asp-action="AddAnagrafica">Anagrafica trasgressore</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white fw-normal" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Verbali
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-black" asp-area="" asp-controller="Query" asp-action="VerbaliTrasgre">Verbali-Trasgressore</a></li>
-                                <li><a class="dropdown-item text-black" asp-area="" asp-controller="Query" asp-action="TrasgrePunti">Punti-Trasgressore</a></li>
-                                <li><a class="dropdown-item text-black" asp-area="" asp-controller="Query" asp-action="Punti">Violazioni oltre 10 punti</a></li>
-                                <li><a class="dropdown-item text-black" asp-area="" asp-controller="Query" asp-action="FiltroImporto">Violazioni oltre 400€</a></li>
-                            </ul>
-                        </li>
+                       
                     </ul>
+                    <div class="nav-item dropstart me-5">
+                        <a class="nav-link dropdown-toggle text-white fw-normal" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Query
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-black" asp-area="" asp-controller="Query" asp-action="VerbaliTrasgre">Verbali-Trasgressore</a></li>
+                            <li><a class="dropdown-item text-black" asp-area="" asp-controller="Query" asp-action="TrasgrePunti">Punti-Trasgressore</a></li>
+                            <li><a class="dropdown-item text-black" asp-area="" asp-controller="Query" asp-action="Punti">Violazioni oltre 10 punti</a></li>
+                            <li><a class="dropdown-item text-black" asp-area="" asp-controller="Query" asp-action="FiltroImporto">Violazioni oltre 400€</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>

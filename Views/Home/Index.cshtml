@@ -24,7 +24,7 @@
     <h3>Non ci sono verbali sul database</h3>
 } else
 {
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -51,7 +51,7 @@
                     <td scope="col">@multa.DecurtamentoPunti</td>
                     <td scope="col" class="text-nowrap">@multa.Descrizione</td>
                     <td scope="col">
-                        <a class="btn btn-outline-secondary text-nowrap " asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Anagrafica Trasgressore</a>              
+                        <a class="btn btn-outline-secondary text-nowrap border-0" asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Anagrafica Trasgressore</a>              
                     </td>               
                 </tr>
             }
