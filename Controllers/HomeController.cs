@@ -240,49 +240,56 @@ namespace PoliziaMunicipale.Controllers
         public IActionResult AddAnagrafica(Anagrafica utente)
         {
             var error = true;
+            int lastInsertedId = 0;  
+
             try
             {
-                DB.conn.Open();
-                var cmd = new SqlCommand(@"INSERT INTO Anagrafica 
-                                    (Cognome, Nome, Indirizzo, Citta, CAP, Cod_Fisc)
-                                    VALUES (@cognome, @nome, @indirizzo, @citta, @cap, @cod_fisc)", DB.conn);
-                cmd.Parameters.AddWithValue("@cognome", utente.Cognome);
-                cmd.Parameters.AddWithValue("@nome", utente.Nome);
-                cmd.Parameters.AddWithValue("@indirizzo", utente.Indirizzo);
-                cmd.Parameters.AddWithValue("@citta", utente.Citta);
-                cmd.Parameters.AddWithValue("@cap", utente.CAP);
-                cmd.Parameters.AddWithValue("@cod_fisc", utente.Cod_Fisc);
+               
+               DB.conn.Open();
 
+               var cmd = new SqlCommand(@"INSERT INTO Anagrafica 
+                                                 (Cognome, Nome, Indirizzo, Citta, CAP, Cod_Fisc)
+                                                 VALUES (@cognome, @nome, @indirizzo, @citta, @cap, @cod_fisc);
+                                                 SELECT SCOPE_IDENTITY()", DB.conn);
+                    
+                  cmd.Parameters.AddWithValue("@cognome", utente.Cognome);
+                  cmd.Parameters.AddWithValue("@nome", utente.Nome);
+                  cmd.Parameters.AddWithValue("@indirizzo", utente.Indirizzo);
+                  cmd.Parameters.AddWithValue("@citta", utente.Citta);
+                  cmd.Parameters.AddWithValue("@cap", utente.CAP);
+                  cmd.Parameters.AddWithValue("@cod_fisc", utente.Cod_Fisc);
 
-                var nRows = cmd.ExecuteNonQuery();
+                        
+                 var identity = cmd.ExecuteScalar();
 
-                if (nRows>0) 
-                {
-                    error = false; 
-                }
-
+                 if (identity != null)
+                 {
+                     lastInsertedId = Convert.ToInt32(identity);
+                     error = false;
+                 }
+                    
+                
             }
             catch (Exception ex)
             {
-                
-                return View(ex.Message);
+                error = true;               
             }
             finally
             {
                 DB.conn.Close();
             }
 
+
             if (!error)
             {
                 TempData["MessageSuccess"] = $"L'utente {utente.Nome} {utente.Cognome} è stato aggiunto in anagrafica.";
+                return RedirectToAction("Anagrafica", new { id = lastInsertedId });
             }
             else
             {
                 TempData["MessageError"] = $"Errore durante il caricamento nella base dati.";
-
-            }
-
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }         
         }
 
 
